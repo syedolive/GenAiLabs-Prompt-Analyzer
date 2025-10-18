@@ -1,0 +1,20 @@
+estimates
+Story,Task,Estimate min (hr),Estimate max (hr),Actual,Comment
+Setting up a project is crucial task. I could go for separate Codebases for frontend and backend. But I think monorepo would be a greate fir for me here.,Setting up monorepo with pnpm Workspaces,0.5,1,1 hr,"Corepack is causing issues, either need to fix it or disable it."
+"Decided to go with Nextjs for frontend, my initial choice was React-Router-v7 with Framework mode",Installing & setting up nextjs into monorepo with Tailwind support,1,1,1,
+Shadcn is my go to UI library for a crisp and professional UI with good amount and quality of usable components.,"Installing shadcn and Initial Components (Buttons, sheets, sidebar, icons etc)",1,1,1,
+"My style of working is to first setup a rough working UI (static). If no design is available, I tend to create it because feeling it is better than visualizing",Creating a basic Layout of the app,6,16,,
+,"Setting up a nests app with Prisma, bullmq & perhaps websockets or SSE (not decided yet)",1,2,,
+,Gemini Dynamic module for nests,1,1,,
+,Creating a first endpoint to test response generation with Bullmq (LLM api request and metric calculations will be done inside a queue worker and will be sent to the frontend via websocket or SSE),2,3,,
+,"Creating Postgres (Prisma) schema according to our app, deciding on tables etc",3,4,,
+,Setting up web sockets or SSE for asynchronous prompt response.,1,1,,
+,Connecting prompt response generation api with frontend for first spin,1,1,,
+,Integrate async response handling for per-prompt output retrieval on the frontend,2,2,,
+,"Adding new modules to the backend for metrics evaluation (Completeness, Coherence, Length Appropriateness, structural pattern, Readability, Distinct-n). Not sure if I’ll be able to finish them all",1,3,,
+,"Completeness module with Instruction Compliance Score, Section Coverage, Keyword Coverage metrics calculation",3,4,,
+,"Length Appropriateness module with Length Appropriateness Score, Target vs Actual comparison metrics",3,4,,
+,Displaying metrics on the frontend,3,3,,
+,Creating an Experiment UI on the frontend (it will take an export from a previous prompt and run it through other AI models (which I’ll have to figure out),5,7,,
+"I think once your core features starts to work correctly then at that point fixing UI based, optimizing it or even fixing a folder structure issues makes more sense. ",Optimizing frontend UI and codebase ,,,,
+,"If All went well, will move on to other metrics",,,,
