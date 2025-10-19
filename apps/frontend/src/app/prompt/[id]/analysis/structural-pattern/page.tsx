@@ -1,0 +1,1 @@
+export default () => <div>Structural Pattern</div>

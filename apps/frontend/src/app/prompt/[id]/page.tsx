@@ -3,15 +3,16 @@ import {Badge} from "@/components/ui/badge";
 import {ScrollArea} from "@/components/ui/scroll-area";
 import {IconReload} from "@tabler/icons-react";
 import {Button} from "@/components/ui/button";
+import {Spinner} from "@/components/ui/spinner";
 
 export default function PromptPage() {
     return(
         <div className="flex flex-1 flex-col gap-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-14">
                 {Array.from({length: 3}).map((_, index) => (
                     <div key={index.toString()} className="md:last:odd:col-span-2">
                         <Card className="border-none shadow-none py-4">
-                            <CardHeader className="border-b !py-2">
+                            <CardHeader className="!py-2">
                                 <CardTitle className="text-sm">Response: Profile Name</CardTitle>
                                 <CardDescription className="flex flex-row flex-wrap gap-2">
                                     <Badge variant="outline" className="rounded-full py-1">Temperature: 0.8</Badge>
@@ -41,6 +42,14 @@ export default function PromptPage() {
                         </Card>
                     </div>
                 ))}
+            </div>
+            <div className="fixed bottom-3 right-3">
+                <Button variant="secondary" size="lg" className="rounded-full" disabled={true}>
+                    <div className="flex flex-row items-center gap-2">
+                        <Spinner/>
+                        Waiting for prompts to load...
+                    </div>
+                </Button>
             </div>
         </div>
     )
