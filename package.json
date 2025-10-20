@@ -8,6 +8,7 @@
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
     "dev:frontend": "pnpm --filter @gen-ai/frontend dev",
+    "dev:api": "pnpm --filter @gen-ai/api dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
