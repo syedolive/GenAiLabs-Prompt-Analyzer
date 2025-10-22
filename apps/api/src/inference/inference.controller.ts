@@ -39,7 +39,7 @@ export class InferenceController {
   }
 
   @Sse('stream')
-  stream(@Query('jobId') jobId: string): Observable<MessageEvent> {
+  stream(@Query('job_id') jobId: string): Observable<MessageEvent> {
     const channel = this.inferenceQueueEvents.getChannel(jobId);
     return new Observable<MessageEvent>((observer) => {
       observer.next({ type: 'open', data: { ok: true } });

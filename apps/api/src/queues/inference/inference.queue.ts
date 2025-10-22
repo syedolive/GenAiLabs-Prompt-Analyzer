@@ -1,15 +1,15 @@
 import { OnWorkerEvent, Processor, WorkerHost } from '@nestjs/bullmq';
 import { Logger } from '@nestjs/common';
 import { Job } from 'bullmq';
-import { GeminiProvider } from 'src/llm-providers/gemini.provider';
+import { GeminiProvider } from 'src/llm-providers/providers/gemini.provider';
 
-@Processor('inference')
+@Processor('inference', { concurrency: 3 })
 export class InferenceQueue extends WorkerHost {
   private logger = new Logger(InferenceQueue.name);
   constructor(private readonly geminiProvider: GeminiProvider) {
     super();
   }
-  async process(job: Job<{ prompt: string }, any, string>) {
+  async process(job: Job<{ prompt: string }, string, string>) {
     const { prompt } = job.data;
     try {
       let result: string = '';
@@ -30,6 +30,6 @@ export class InferenceQueue extends WorkerHost {
 
   @OnWorkerEvent('completed')
   onCompleted(job: Job<{ prompt: string }, any, string>, result: any) {
-    this.logger.debug(`Job ${job.id} completed`);
+    this.logger.debug(`Job ${job.id} completed: ${result}`);
   }
 }

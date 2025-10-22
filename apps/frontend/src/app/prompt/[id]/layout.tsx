@@ -1,42 +1,61 @@
+import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-} from "@/components/ui/card"
-import {Button} from "@/components/ui/button";
-import {IconReload} from "@tabler/icons-react";
-import {Badge} from "@/components/ui/badge";
-import {Spinner} from "@/components/ui/spinner";
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { getPrompt } from "@/lib/network";
+import { ClipboardCopy, Copy } from "lucide-react";
+import { notFound } from "next/navigation";
+import dayjs from "dayjs";
+import { PromptResponseContextProvider } from "@/features/prompt_layout/providers/prompt-response-context";
+type Params = Promise<{
+  id: string;
+}>;
 
-
-
-
-export default function PromptLayout({children}: { children: React.ReactNode}) {
-    return(
-        <div className="container mx-auto flex flex-1 flex-col px-2 relative py-4 gap-4">
-            <Card className="border-none shadow-none">
-                <CardHeader>
-                    <CardDescription className="text-sm">As a restaurant owner, I want to manage my menu items through an admin dashboard so that I can easily update prices, descriptions, and availability without relying on developers. This will allow me to quickly respond to changes in inventory or seasonal offers and ensure my customers always see accurate information online. Example prompt for the sheet:
-                        The restaurant admin module should enable owners to create, edit, and delete menu items, organize them into categories, and toggle visibility for out-of-stock dishes. The dashboard should include validation for required fields, image uploads for menu items, and a confirmation dialog before deletion.</CardDescription>
-                </CardHeader>
-                {/*<CardContent>*/}
-                {/*    <Badge variant="secondary" className="rounded-full py-2">Default Profile</Badge>*/}
-                {/*</CardContent>*/}
-                <CardFooter className="flex flex-row items-center justify-between gap-2">
-                    <Badge variant="outline" className="rounded-full py-2">Gemini: 1.5pro</Badge>
-                    <div className="flex gap-2 items-center">
-                        <Button variant="secondary" size="icon-sm" className="rounded-full text-xs">
-                            <IconReload/>
-                        </Button>
-                        <Button variant="secondary" size="sm" className="rounded-full text-xs">
-                            <span>Edit Prompt</span>
-                        </Button>
-                    </div>
-                </CardFooter>
-            </Card>
-            {children}
-        </div>
-    )
+export default async function PromptLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Params;
+}) {
+  const { id } = await params;
+  try {
+    const { data } = await getPrompt(id);
+    return (
+      <div className="container mx-auto flex flex-1 flex-col px-2 relative py-4 gap-4">
+        <Card className="border-none shadow-sm">
+          <CardHeader>
+            <CardDescription className="text-sm">{data.prompt}</CardDescription>
+          </CardHeader>
+          <CardFooter className="flex flex-row items-center justify-between">
+            <div className="flex flex-1 flex-row items-center gap-2">
+              <span className="text-xs text-muted-foreground font-semibold">
+                {data.models[0].model.name}
+              </span>
+              <Separator orientation="vertical" className="h-2" />
+              <span className="text-xs text-muted-foreground">
+                {data.tokens} tokens
+              </span>
+              <Separator orientation="vertical" className="h-2" />
+              <Button variant="ghost" size="icon-sm">
+                <Copy className="size-4" />
+              </Button>
+            </div>
+            <span className="text-xs text-muted-foreground font-semibold">
+              {dayjs(data.createdAt).format("MMM D, YYYY h:mm A")}
+            </span>
+          </CardFooter>
+        </Card>
+        <PromptResponseContextProvider data={data}>
+          {children}
+        </PromptResponseContextProvider>
+      </div>
+    );
+  } catch (error) {
+    return notFound();
+  }
 }

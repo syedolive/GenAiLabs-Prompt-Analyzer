@@ -7,6 +7,8 @@ import config from './config/config';
 import { BullModule } from '@nestjs/bullmq';
 import { QueuesModule } from './queues/queues.module';
 import { LLMProviderModule } from './llm-providers/llm-provider.module';
+import { PrismaModuleModule } from './prisma-module/prisma-module.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -22,11 +24,17 @@ import { LLMProviderModule } from './llm-providers/llm-provider.module';
         connection: {
           url: configService.get('redis.uri'),
         },
+        defaultJobOptions: {
+          removeOnComplete: true,
+          removeOnFail: true,
+        },
       }),
     }),
+    EventEmitterModule.forRoot(),
     InferenceModule,
     QueuesModule,
     LLMProviderModule,
+    PrismaModuleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

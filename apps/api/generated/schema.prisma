@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model LLMModel {
+  id        String           @id @default(uuid()) @db.Uuid
+  name      String           @unique
+  rpm       Int
+  rpd       Int
+  tpm       Int
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  prompts   ModelToPrompt[]
+  responses PromptResponse[]
+
+  @@map("llm_model")
+}
+
+model SamplingProfile {
+  id                String            @id @default(uuid()) @db.Uuid
+  profile_name      String            @db.VarChar(255)
+  temperature       Float             @default(0.0)
+  top_k             Float             @default(0.0)
+  top_p             Float             @default(0.0)
+  presence_penalty  Float?
+  frequency_penalty Float?
+  max_tokens        Int?              @default(512)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  prompts           ProfileToPrompt[]
+  responses         PromptResponse[]
+
+  @@map("sampling_profile")
+}
+
+model Prompt {
+  id        String            @id @default(uuid()) @db.Uuid
+  prompt    String            @db.VarChar(255)
+  tokens    Int               @default(0)
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+  profiles  ProfileToPrompt[]
+  models    ModelToPrompt[]
+  responses PromptResponse[]
+
+  @@map("prompt")
+}
+
+model ModelToPrompt {
+  model_id  String   @db.Uuid
+  model     LLMModel @relation(fields: [model_id], references: [id])
+  prompt_id String   @db.Uuid
+  prompt    Prompt   @relation(fields: [prompt_id], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([model_id, prompt_id])
+  @@index([model_id])
+  @@index([prompt_id])
+  @@map("model_to_prompt")
+}
+
+model ProfileToPrompt {
+  profile_id String          @db.Uuid
+  profile    SamplingProfile @relation(fields: [profile_id], references: [id])
+  prompt_id  String          @db.Uuid
+  prompt     Prompt          @relation(fields: [prompt_id], references: [id])
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@id([profile_id, prompt_id])
+  @@index([profile_id])
+  @@index([prompt_id])
+  @@map("profile_to_prompt")
+}
+
+model PromptResponse {
+  id         String          @id @default(uuid()) @db.Uuid
+  prompt_id  String          @db.Uuid
+  prompt     Prompt          @relation(fields: [prompt_id], references: [id])
+  model_id   String          @db.Uuid
+  model      LLMModel        @relation(fields: [model_id], references: [id])
+  profile_id String          @db.Uuid
+  profile    SamplingProfile @relation(fields: [profile_id], references: [id])
+  response   String?         @db.VarChar(255)
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+
+  @@index([prompt_id])
+  @@index([model_id])
+  @@index([profile_id])
+  @@map("prompt_response")
+}

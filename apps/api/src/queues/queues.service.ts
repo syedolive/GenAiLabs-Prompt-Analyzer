@@ -12,15 +12,19 @@ export class QueueService {
     return this.inferenceQueue;
   }
 
-  async addToInferenceQueue(params: string) {
-    await this.inferenceQueue.add(
-      'generate',
-      {
-        prompt: params,
-      },
-      {
-        jobId: 'jiren',
-      },
-    );
+  async addToInferenceQueue(jobId: string, response: string) {
+    try {
+      await this.inferenceQueue.add(
+        'generate',
+        {
+          prompt: response,
+        },
+        {
+          jobId: jobId,
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
