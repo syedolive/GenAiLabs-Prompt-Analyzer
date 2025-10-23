@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import SamplingProfileDialog from "@/features/sampling_profile";
@@ -15,6 +17,10 @@ export default function SamplingProfileSectionComponent() {
       form.getValues("samplingProfiles").includes(p.id)
     );
   }, [form.watch("samplingProfiles")]);
+  const _onProfileRemove = (id: string) => {
+    const profiles = form.getValues("samplingProfiles").filter((p) => p !== id);
+    form.setValue("samplingProfiles", profiles);
+  };
   return (
     <div className="flex flex-row flex-wrap items-center gap-3 h-11 px-2">
       {selectedProfiles.map((profile) => (
@@ -30,6 +36,7 @@ export default function SamplingProfileSectionComponent() {
             variant="secondary"
             size="icon-sm"
             className="rounded-full text-xs"
+            onClick={() => _onProfileRemove(profile.id)}
           >
             <IconX />
           </Button>
