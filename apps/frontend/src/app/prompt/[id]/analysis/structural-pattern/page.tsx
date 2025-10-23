@@ -1,1 +1,3 @@
-export default () => <div>Structural Pattern</div>
+export default function StructuralPattern(){
+    return <div>Structural Pattern</div>
+}
