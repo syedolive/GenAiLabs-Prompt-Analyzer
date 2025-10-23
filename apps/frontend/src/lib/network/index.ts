@@ -9,12 +9,15 @@ import {
   type CreatePromptResponse,
   type PromptListResponse,
 } from "./dto/prompts-request.dto";
+import { LengthAppropriatenessResponseElement } from "./dto/length-app-metric.dto";
+import { CompletenessResponseElement } from "./dto/completeness.dto";
+import { ExportResponse } from "./dto/export.dto";
 
 const BASE_URL =
   typeof window !== "undefined"
     ? process.env.NEXT_PUBLIC_API_URL
     : process.env.API_URL;
-
+console.log(BASE_URL)
 const api = Axios.create({
   baseURL: BASE_URL,
 });
@@ -24,6 +27,7 @@ export const SSE_PROMPT_URL = (jobId: string) =>
 
 const API_VERSION = 1 as const;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const reactCache = <T, A extends any[]>(
   fn: (...args: A) => Promise<T>
 ) => cache(fn);
@@ -48,7 +52,7 @@ export const createSamplingProfile = (values: SampleProfileFromSchema) => {
 
 export const getPrompts = async (page: number) => {
   return api.get<PromptListResponse>(
-    `api/v${API_VERSION}/prompt?page=${page}&limit=10`
+    `api/v${API_VERSION}/prompt?page=${page}&limit=50`
   );
 };
 
@@ -59,3 +63,19 @@ export const sendPrompt = (values: PromptComposerFormSchema) => {
 export const getPrompt = reactCache((id: string) => {
   return api.get<SinglePromptResponse>(`api/v${API_VERSION}/prompt/${id}`);
 });
+
+export const getPromptLengthMetrics = reactCache((id: string) => {
+  return api.get<LengthAppropriatenessResponseElement[]>(
+    `api/v${API_VERSION}/metric/${id}/length-metrics`
+  );
+});
+
+export const getPromptCompletenessMetrics = reactCache((id: string) => {
+  return api.get<CompletenessResponseElement[]>(
+    `api/v${API_VERSION}/metric/${id}/completeness`
+  );
+});
+
+export const exportPrompt = (id: string) => {
+  return api.get<ExportResponse>(`api/v${API_VERSION}/prompt/${id}/export`);
+};

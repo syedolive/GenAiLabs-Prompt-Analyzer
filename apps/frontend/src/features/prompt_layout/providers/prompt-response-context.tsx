@@ -1,10 +1,18 @@
 "use client";
 import { SinglePromptResponse } from "@/lib/network/dto/prompts-request.dto";
-import { createContext, useCallback, useContext, useEffect, useRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type PromptResponseContextValue = {
   data: SinglePromptResponse;
   responseLoadedComplete: boolean;
+  responseComplete: () => void;
   startSse: (key: string, url: string) => EventSource;
   getSse: (key: string) => EventSource | undefined;
   stopSse: (key: string) => void;
@@ -33,8 +41,17 @@ export const PromptResponseContextProvider = ({
   children,
   data,
 }: PromptResponseContextProviderProps) => {
+  const [responseLoadedComplete, setResponseLoadedComplete] =
+    useState<boolean>(false);
   const sseMap = useRef(new Map<string, EventSource>());
-
+  useEffect(() => {
+    return () => {
+      sseMap.current.forEach((src) => {
+        src.close();
+      });
+      sseMap.current.clear();
+    };
+  }, []);
   const startSse = useCallback((key: string, url: string) => {
     let src = sseMap.current.get(key);
     if (!src) {
@@ -55,22 +72,20 @@ export const PromptResponseContextProvider = ({
       sseMap.current.delete(key);
     }
   }, []);
-  useEffect(() => {
-    return () => {
-      sseMap.current.forEach((src) => {
-        src.close();
-      });
-      sseMap.current.clear();
-    };
-  }, []);
+
+  const responseComplete = useCallback(() => {
+    setResponseLoadedComplete(true);
+  }, [setResponseLoadedComplete]);
+
   return (
     <PromptResponseContext.Provider
       value={{
         data,
-        responseLoadedComplete: false,
+        responseLoadedComplete,
         startSse,
         getSse,
         stopSse,
+        responseComplete,
       }}
     >
       {children}

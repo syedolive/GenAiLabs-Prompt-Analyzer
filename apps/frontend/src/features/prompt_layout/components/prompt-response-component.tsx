@@ -24,19 +24,27 @@ import { CopyToClipboard } from "./copy-to-clipboard";
 export function PromptResponseComponent({
   response,
   responseCount,
+  index,
 }: {
   response: Response;
   responseCount: number;
+  index: number;
 }) {
   const [isLoading, setIsLoading] = useState(true);
   const textRef = useRef<HTMLSpanElement>(null);
   const mdxContainerRef = useRef<HTMLDivElement>(null);
   const mdxBufferRef = useRef<string>("");
   const mdxFile = useRef<VFile>(null);
-  const { startSse, stopSse, getSse } = usePromptResponseContext();
+  const { startSse, stopSse, getSse, responseComplete } =
+    usePromptResponseContext();
   const { profile } = response;
   useEffect(() => {
     if (response.response !== null) {
+      mdxBufferRef.current = response.response;
+      generateMdx();
+      if (responseCount - 1 === index) {
+        responseComplete();
+      }
       return;
     }
     let sse = getSse(response.id);
@@ -65,17 +73,18 @@ export function PromptResponseComponent({
     setIsLoading(true);
   }, []);
   const _onMessageChunk = useCallback((e: MessageEvent) => {
-    console.log(`'SSE chunk received' ${e.data}`);
     if (textRef.current) {
       textRef.current.textContent += e.data;
       mdxBufferRef.current += e.data;
     }
   }, []);
   const _onMessageCompleted = useCallback(async (e: MessageEvent) => {
-    console.log(`'SSE completed received' ${e.data}`);
     setIsLoading(false);
     stopSse(response.id);
     generateMdx();
+    if (responseCount - 1 === index) {
+      responseComplete();
+    }
   }, []);
   const generateMdx = useCallback(async () => {
     mdxFile.current = await unified()
@@ -93,7 +102,6 @@ export function PromptResponseComponent({
     }
   }, []);
   const _onMessageFailed = useCallback((e: MessageEvent) => {
-    console.log(`'SSE failed received' ${e.data}`);
     setIsLoading(false);
   }, []);
   return (

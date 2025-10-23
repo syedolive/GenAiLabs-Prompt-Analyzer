@@ -45,7 +45,6 @@ export class InferenceController {
       observer.next({ type: 'open', data: { ok: true } });
       const sub = channel.subscribe({
         next: (event) => {
-          this.logger.debug(`CONTROLLER: ${JSON.stringify(event)}`);
           switch (event.kind) {
             case 'chunk':
               observer.next({

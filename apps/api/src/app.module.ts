@@ -9,6 +9,7 @@ import { QueuesModule } from './queues/queues.module';
 import { LLMProviderModule } from './llm-providers/llm-provider.module';
 import { PrismaModuleModule } from './prisma-module/prisma-module.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+import { MetricsModule } from './metrics/metrics.module';
 
 @Module({
   imports: [
@@ -24,10 +25,6 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
         connection: {
           url: configService.get('redis.uri'),
         },
-        defaultJobOptions: {
-          removeOnComplete: true,
-          removeOnFail: true,
-        },
       }),
     }),
     EventEmitterModule.forRoot(),
@@ -35,6 +32,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
     QueuesModule,
     LLMProviderModule,
     PrismaModuleModule,
+    MetricsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

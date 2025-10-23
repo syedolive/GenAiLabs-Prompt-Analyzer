@@ -11,9 +11,19 @@ import { ClipboardCopy, Copy } from "lucide-react";
 import { notFound } from "next/navigation";
 import dayjs from "dayjs";
 import { PromptResponseContextProvider } from "@/features/prompt_layout/providers/prompt-response-context";
+import { CopyToClipboard } from "@/features/prompt_layout/components/copy-to-clipboard";
 type Params = Promise<{
   id: string;
 }>;
+
+export async function generateMetadata({ params }: { params: Params }) {
+  const {id} = await params
+  const { data } = await getPrompt(id);
+  return {
+    title: data.prompt,
+    description: data.prompt,
+  };
+}
 
 export default async function PromptLayout({
   children,
@@ -41,9 +51,7 @@ export default async function PromptLayout({
                 {data.tokens} tokens
               </span>
               <Separator orientation="vertical" className="h-2" />
-              <Button variant="ghost" size="icon-sm">
-                <Copy className="size-4" />
-              </Button>
+              <CopyToClipboard text={data.prompt} />
             </div>
             <span className="text-xs text-muted-foreground font-semibold">
               {dayjs(data.createdAt).format("MMM D, YYYY h:mm A")}

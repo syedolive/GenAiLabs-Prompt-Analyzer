@@ -43,6 +43,11 @@ export type ProfileToPrompt = $Result.DefaultSelection<Prisma.$ProfileToPromptPa
  * 
  */
 export type PromptResponse = $Result.DefaultSelection<Prisma.$PromptResponsePayload>
+/**
+ * Model LengthMetrics
+ * 
+ */
+export type LengthMetrics = $Result.DefaultSelection<Prisma.$LengthMetricsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -221,6 +226,16 @@ export class PrismaClient<
     * ```
     */
   get promptResponse(): Prisma.PromptResponseDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lengthMetrics`: Exposes CRUD operations for the **LengthMetrics** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more LengthMetrics
+    * const lengthMetrics = await prisma.lengthMetrics.findMany()
+    * ```
+    */
+  get lengthMetrics(): Prisma.LengthMetricsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -666,7 +681,8 @@ export namespace Prisma {
     Prompt: 'Prompt',
     ModelToPrompt: 'ModelToPrompt',
     ProfileToPrompt: 'ProfileToPrompt',
-    PromptResponse: 'PromptResponse'
+    PromptResponse: 'PromptResponse',
+    LengthMetrics: 'LengthMetrics'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -685,7 +701,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "lLMModel" | "samplingProfile" | "prompt" | "modelToPrompt" | "profileToPrompt" | "promptResponse"
+      modelProps: "lLMModel" | "samplingProfile" | "prompt" | "modelToPrompt" | "profileToPrompt" | "promptResponse" | "lengthMetrics"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1133,6 +1149,80 @@ export namespace Prisma {
           }
         }
       }
+      LengthMetrics: {
+        payload: Prisma.$LengthMetricsPayload<ExtArgs>
+        fields: Prisma.LengthMetricsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LengthMetricsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LengthMetricsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>
+          }
+          findFirst: {
+            args: Prisma.LengthMetricsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LengthMetricsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>
+          }
+          findMany: {
+            args: Prisma.LengthMetricsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>[]
+          }
+          create: {
+            args: Prisma.LengthMetricsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>
+          }
+          createMany: {
+            args: Prisma.LengthMetricsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LengthMetricsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>[]
+          }
+          delete: {
+            args: Prisma.LengthMetricsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>
+          }
+          update: {
+            args: Prisma.LengthMetricsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>
+          }
+          deleteMany: {
+            args: Prisma.LengthMetricsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LengthMetricsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LengthMetricsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>[]
+          }
+          upsert: {
+            args: Prisma.LengthMetricsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LengthMetricsPayload>
+          }
+          aggregate: {
+            args: Prisma.LengthMetricsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLengthMetrics>
+          }
+          groupBy: {
+            args: Prisma.LengthMetricsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LengthMetricsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LengthMetricsCountArgs<ExtArgs>
+            result: $Utils.Optional<LengthMetricsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1235,6 +1325,7 @@ export namespace Prisma {
     modelToPrompt?: ModelToPromptOmit
     profileToPrompt?: ProfileToPromptOmit
     promptResponse?: PromptResponseOmit
+    lengthMetrics?: LengthMetricsOmit
   }
 
   /* Types for Logging */
@@ -7275,6 +7366,7 @@ export namespace Prisma {
     prompt?: boolean | PromptDefaultArgs<ExtArgs>
     model?: boolean | LLMModelDefaultArgs<ExtArgs>
     profile?: boolean | SamplingProfileDefaultArgs<ExtArgs>
+    lengthMetrics?: boolean | PromptResponse$lengthMetricsArgs<ExtArgs>
   }, ExtArgs["result"]["promptResponse"]>
 
   export type PromptResponseSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7318,6 +7410,7 @@ export namespace Prisma {
     prompt?: boolean | PromptDefaultArgs<ExtArgs>
     model?: boolean | LLMModelDefaultArgs<ExtArgs>
     profile?: boolean | SamplingProfileDefaultArgs<ExtArgs>
+    lengthMetrics?: boolean | PromptResponse$lengthMetricsArgs<ExtArgs>
   }
   export type PromptResponseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     prompt?: boolean | PromptDefaultArgs<ExtArgs>
@@ -7336,6 +7429,7 @@ export namespace Prisma {
       prompt: Prisma.$PromptPayload<ExtArgs>
       model: Prisma.$LLMModelPayload<ExtArgs>
       profile: Prisma.$SamplingProfilePayload<ExtArgs>
+      lengthMetrics: Prisma.$LengthMetricsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7742,6 +7836,7 @@ export namespace Prisma {
     prompt<T extends PromptDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PromptDefaultArgs<ExtArgs>>): Prisma__PromptClient<$Result.GetResult<Prisma.$PromptPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     model<T extends LLMModelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LLMModelDefaultArgs<ExtArgs>>): Prisma__LLMModelClient<$Result.GetResult<Prisma.$LLMModelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     profile<T extends SamplingProfileDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SamplingProfileDefaultArgs<ExtArgs>>): Prisma__SamplingProfileClient<$Result.GetResult<Prisma.$SamplingProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    lengthMetrics<T extends PromptResponse$lengthMetricsArgs<ExtArgs> = {}>(args?: Subset<T, PromptResponse$lengthMetricsArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8174,6 +8269,25 @@ export namespace Prisma {
   }
 
   /**
+   * PromptResponse.lengthMetrics
+   */
+  export type PromptResponse$lengthMetricsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    where?: LengthMetricsWhereInput
+  }
+
+  /**
    * PromptResponse without action
    */
   export type PromptResponseDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8189,6 +8303,1175 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PromptResponseInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model LengthMetrics
+   */
+
+  export type AggregateLengthMetrics = {
+    _count: LengthMetricsCountAggregateOutputType | null
+    _avg: LengthMetricsAvgAggregateOutputType | null
+    _sum: LengthMetricsSumAggregateOutputType | null
+    _min: LengthMetricsMinAggregateOutputType | null
+    _max: LengthMetricsMaxAggregateOutputType | null
+  }
+
+  export type LengthMetricsAvgAggregateOutputType = {
+    response_token_count: number | null
+    response_sentence_count: number | null
+    response_word_count: number | null
+    avg_sentence_length: Decimal | null
+    response_to_prompt_ratio: Decimal | null
+  }
+
+  export type LengthMetricsSumAggregateOutputType = {
+    response_token_count: number | null
+    response_sentence_count: number | null
+    response_word_count: number | null
+    avg_sentence_length: Decimal | null
+    response_to_prompt_ratio: Decimal | null
+  }
+
+  export type LengthMetricsMinAggregateOutputType = {
+    id: string | null
+    prompt_response_id: string | null
+    response_token_count: number | null
+    response_sentence_count: number | null
+    response_word_count: number | null
+    avg_sentence_length: Decimal | null
+    response_to_prompt_ratio: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LengthMetricsMaxAggregateOutputType = {
+    id: string | null
+    prompt_response_id: string | null
+    response_token_count: number | null
+    response_sentence_count: number | null
+    response_word_count: number | null
+    avg_sentence_length: Decimal | null
+    response_to_prompt_ratio: Decimal | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LengthMetricsCountAggregateOutputType = {
+    id: number
+    prompt_response_id: number
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: number
+    response_to_prompt_ratio: number
+    createdAt: number
+    updatedAt: number
+    extras: number
+    _all: number
+  }
+
+
+  export type LengthMetricsAvgAggregateInputType = {
+    response_token_count?: true
+    response_sentence_count?: true
+    response_word_count?: true
+    avg_sentence_length?: true
+    response_to_prompt_ratio?: true
+  }
+
+  export type LengthMetricsSumAggregateInputType = {
+    response_token_count?: true
+    response_sentence_count?: true
+    response_word_count?: true
+    avg_sentence_length?: true
+    response_to_prompt_ratio?: true
+  }
+
+  export type LengthMetricsMinAggregateInputType = {
+    id?: true
+    prompt_response_id?: true
+    response_token_count?: true
+    response_sentence_count?: true
+    response_word_count?: true
+    avg_sentence_length?: true
+    response_to_prompt_ratio?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LengthMetricsMaxAggregateInputType = {
+    id?: true
+    prompt_response_id?: true
+    response_token_count?: true
+    response_sentence_count?: true
+    response_word_count?: true
+    avg_sentence_length?: true
+    response_to_prompt_ratio?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LengthMetricsCountAggregateInputType = {
+    id?: true
+    prompt_response_id?: true
+    response_token_count?: true
+    response_sentence_count?: true
+    response_word_count?: true
+    avg_sentence_length?: true
+    response_to_prompt_ratio?: true
+    createdAt?: true
+    updatedAt?: true
+    extras?: true
+    _all?: true
+  }
+
+  export type LengthMetricsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LengthMetrics to aggregate.
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LengthMetrics to fetch.
+     */
+    orderBy?: LengthMetricsOrderByWithRelationInput | LengthMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LengthMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LengthMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LengthMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned LengthMetrics
+    **/
+    _count?: true | LengthMetricsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LengthMetricsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LengthMetricsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LengthMetricsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LengthMetricsMaxAggregateInputType
+  }
+
+  export type GetLengthMetricsAggregateType<T extends LengthMetricsAggregateArgs> = {
+        [P in keyof T & keyof AggregateLengthMetrics]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLengthMetrics[P]>
+      : GetScalarType<T[P], AggregateLengthMetrics[P]>
+  }
+
+
+
+
+  export type LengthMetricsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LengthMetricsWhereInput
+    orderBy?: LengthMetricsOrderByWithAggregationInput | LengthMetricsOrderByWithAggregationInput[]
+    by: LengthMetricsScalarFieldEnum[] | LengthMetricsScalarFieldEnum
+    having?: LengthMetricsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LengthMetricsCountAggregateInputType | true
+    _avg?: LengthMetricsAvgAggregateInputType
+    _sum?: LengthMetricsSumAggregateInputType
+    _min?: LengthMetricsMinAggregateInputType
+    _max?: LengthMetricsMaxAggregateInputType
+  }
+
+  export type LengthMetricsGroupByOutputType = {
+    id: string
+    prompt_response_id: string
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: Decimal
+    response_to_prompt_ratio: Decimal
+    createdAt: Date
+    updatedAt: Date
+    extras: JsonValue | null
+    _count: LengthMetricsCountAggregateOutputType | null
+    _avg: LengthMetricsAvgAggregateOutputType | null
+    _sum: LengthMetricsSumAggregateOutputType | null
+    _min: LengthMetricsMinAggregateOutputType | null
+    _max: LengthMetricsMaxAggregateOutputType | null
+  }
+
+  type GetLengthMetricsGroupByPayload<T extends LengthMetricsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LengthMetricsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LengthMetricsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LengthMetricsGroupByOutputType[P]>
+            : GetScalarType<T[P], LengthMetricsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LengthMetricsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    prompt_response_id?: boolean
+    response_token_count?: boolean
+    response_sentence_count?: boolean
+    response_word_count?: boolean
+    avg_sentence_length?: boolean
+    response_to_prompt_ratio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    extras?: boolean
+    promptResponse?: boolean | PromptResponseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lengthMetrics"]>
+
+  export type LengthMetricsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    prompt_response_id?: boolean
+    response_token_count?: boolean
+    response_sentence_count?: boolean
+    response_word_count?: boolean
+    avg_sentence_length?: boolean
+    response_to_prompt_ratio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    extras?: boolean
+    promptResponse?: boolean | PromptResponseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lengthMetrics"]>
+
+  export type LengthMetricsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    prompt_response_id?: boolean
+    response_token_count?: boolean
+    response_sentence_count?: boolean
+    response_word_count?: boolean
+    avg_sentence_length?: boolean
+    response_to_prompt_ratio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    extras?: boolean
+    promptResponse?: boolean | PromptResponseDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lengthMetrics"]>
+
+  export type LengthMetricsSelectScalar = {
+    id?: boolean
+    prompt_response_id?: boolean
+    response_token_count?: boolean
+    response_sentence_count?: boolean
+    response_word_count?: boolean
+    avg_sentence_length?: boolean
+    response_to_prompt_ratio?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    extras?: boolean
+  }
+
+  export type LengthMetricsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "prompt_response_id" | "response_token_count" | "response_sentence_count" | "response_word_count" | "avg_sentence_length" | "response_to_prompt_ratio" | "createdAt" | "updatedAt" | "extras", ExtArgs["result"]["lengthMetrics"]>
+  export type LengthMetricsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    promptResponse?: boolean | PromptResponseDefaultArgs<ExtArgs>
+  }
+  export type LengthMetricsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    promptResponse?: boolean | PromptResponseDefaultArgs<ExtArgs>
+  }
+  export type LengthMetricsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    promptResponse?: boolean | PromptResponseDefaultArgs<ExtArgs>
+  }
+
+  export type $LengthMetricsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "LengthMetrics"
+    objects: {
+      promptResponse: Prisma.$PromptResponsePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      prompt_response_id: string
+      response_token_count: number
+      response_sentence_count: number
+      response_word_count: number
+      avg_sentence_length: Prisma.Decimal
+      response_to_prompt_ratio: Prisma.Decimal
+      createdAt: Date
+      updatedAt: Date
+      extras: Prisma.JsonValue | null
+    }, ExtArgs["result"]["lengthMetrics"]>
+    composites: {}
+  }
+
+  type LengthMetricsGetPayload<S extends boolean | null | undefined | LengthMetricsDefaultArgs> = $Result.GetResult<Prisma.$LengthMetricsPayload, S>
+
+  type LengthMetricsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LengthMetricsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LengthMetricsCountAggregateInputType | true
+    }
+
+  export interface LengthMetricsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['LengthMetrics'], meta: { name: 'LengthMetrics' } }
+    /**
+     * Find zero or one LengthMetrics that matches the filter.
+     * @param {LengthMetricsFindUniqueArgs} args - Arguments to find a LengthMetrics
+     * @example
+     * // Get one LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LengthMetricsFindUniqueArgs>(args: SelectSubset<T, LengthMetricsFindUniqueArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one LengthMetrics that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LengthMetricsFindUniqueOrThrowArgs} args - Arguments to find a LengthMetrics
+     * @example
+     * // Get one LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LengthMetricsFindUniqueOrThrowArgs>(args: SelectSubset<T, LengthMetricsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LengthMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsFindFirstArgs} args - Arguments to find a LengthMetrics
+     * @example
+     * // Get one LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LengthMetricsFindFirstArgs>(args?: SelectSubset<T, LengthMetricsFindFirstArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first LengthMetrics that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsFindFirstOrThrowArgs} args - Arguments to find a LengthMetrics
+     * @example
+     * // Get one LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LengthMetricsFindFirstOrThrowArgs>(args?: SelectSubset<T, LengthMetricsFindFirstOrThrowArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more LengthMetrics that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.findMany()
+     * 
+     * // Get first 10 LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lengthMetricsWithIdOnly = await prisma.lengthMetrics.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LengthMetricsFindManyArgs>(args?: SelectSubset<T, LengthMetricsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a LengthMetrics.
+     * @param {LengthMetricsCreateArgs} args - Arguments to create a LengthMetrics.
+     * @example
+     * // Create one LengthMetrics
+     * const LengthMetrics = await prisma.lengthMetrics.create({
+     *   data: {
+     *     // ... data to create a LengthMetrics
+     *   }
+     * })
+     * 
+     */
+    create<T extends LengthMetricsCreateArgs>(args: SelectSubset<T, LengthMetricsCreateArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many LengthMetrics.
+     * @param {LengthMetricsCreateManyArgs} args - Arguments to create many LengthMetrics.
+     * @example
+     * // Create many LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LengthMetricsCreateManyArgs>(args?: SelectSubset<T, LengthMetricsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many LengthMetrics and returns the data saved in the database.
+     * @param {LengthMetricsCreateManyAndReturnArgs} args - Arguments to create many LengthMetrics.
+     * @example
+     * // Create many LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many LengthMetrics and only return the `id`
+     * const lengthMetricsWithIdOnly = await prisma.lengthMetrics.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LengthMetricsCreateManyAndReturnArgs>(args?: SelectSubset<T, LengthMetricsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a LengthMetrics.
+     * @param {LengthMetricsDeleteArgs} args - Arguments to delete one LengthMetrics.
+     * @example
+     * // Delete one LengthMetrics
+     * const LengthMetrics = await prisma.lengthMetrics.delete({
+     *   where: {
+     *     // ... filter to delete one LengthMetrics
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LengthMetricsDeleteArgs>(args: SelectSubset<T, LengthMetricsDeleteArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one LengthMetrics.
+     * @param {LengthMetricsUpdateArgs} args - Arguments to update one LengthMetrics.
+     * @example
+     * // Update one LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LengthMetricsUpdateArgs>(args: SelectSubset<T, LengthMetricsUpdateArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more LengthMetrics.
+     * @param {LengthMetricsDeleteManyArgs} args - Arguments to filter LengthMetrics to delete.
+     * @example
+     * // Delete a few LengthMetrics
+     * const { count } = await prisma.lengthMetrics.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LengthMetricsDeleteManyArgs>(args?: SelectSubset<T, LengthMetricsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LengthMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LengthMetricsUpdateManyArgs>(args: SelectSubset<T, LengthMetricsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more LengthMetrics and returns the data updated in the database.
+     * @param {LengthMetricsUpdateManyAndReturnArgs} args - Arguments to update many LengthMetrics.
+     * @example
+     * // Update many LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more LengthMetrics and only return the `id`
+     * const lengthMetricsWithIdOnly = await prisma.lengthMetrics.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LengthMetricsUpdateManyAndReturnArgs>(args: SelectSubset<T, LengthMetricsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one LengthMetrics.
+     * @param {LengthMetricsUpsertArgs} args - Arguments to update or create a LengthMetrics.
+     * @example
+     * // Update or create a LengthMetrics
+     * const lengthMetrics = await prisma.lengthMetrics.upsert({
+     *   create: {
+     *     // ... data to create a LengthMetrics
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the LengthMetrics we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LengthMetricsUpsertArgs>(args: SelectSubset<T, LengthMetricsUpsertArgs<ExtArgs>>): Prisma__LengthMetricsClient<$Result.GetResult<Prisma.$LengthMetricsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of LengthMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsCountArgs} args - Arguments to filter LengthMetrics to count.
+     * @example
+     * // Count the number of LengthMetrics
+     * const count = await prisma.lengthMetrics.count({
+     *   where: {
+     *     // ... the filter for the LengthMetrics we want to count
+     *   }
+     * })
+    **/
+    count<T extends LengthMetricsCountArgs>(
+      args?: Subset<T, LengthMetricsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LengthMetricsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a LengthMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LengthMetricsAggregateArgs>(args: Subset<T, LengthMetricsAggregateArgs>): Prisma.PrismaPromise<GetLengthMetricsAggregateType<T>>
+
+    /**
+     * Group by LengthMetrics.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LengthMetricsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LengthMetricsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LengthMetricsGroupByArgs['orderBy'] }
+        : { orderBy?: LengthMetricsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LengthMetricsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLengthMetricsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the LengthMetrics model
+   */
+  readonly fields: LengthMetricsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for LengthMetrics.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LengthMetricsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    promptResponse<T extends PromptResponseDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PromptResponseDefaultArgs<ExtArgs>>): Prisma__PromptResponseClient<$Result.GetResult<Prisma.$PromptResponsePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the LengthMetrics model
+   */
+  interface LengthMetricsFieldRefs {
+    readonly id: FieldRef<"LengthMetrics", 'String'>
+    readonly prompt_response_id: FieldRef<"LengthMetrics", 'String'>
+    readonly response_token_count: FieldRef<"LengthMetrics", 'Int'>
+    readonly response_sentence_count: FieldRef<"LengthMetrics", 'Int'>
+    readonly response_word_count: FieldRef<"LengthMetrics", 'Int'>
+    readonly avg_sentence_length: FieldRef<"LengthMetrics", 'Decimal'>
+    readonly response_to_prompt_ratio: FieldRef<"LengthMetrics", 'Decimal'>
+    readonly createdAt: FieldRef<"LengthMetrics", 'DateTime'>
+    readonly updatedAt: FieldRef<"LengthMetrics", 'DateTime'>
+    readonly extras: FieldRef<"LengthMetrics", 'Json'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * LengthMetrics findUnique
+   */
+  export type LengthMetricsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which LengthMetrics to fetch.
+     */
+    where: LengthMetricsWhereUniqueInput
+  }
+
+  /**
+   * LengthMetrics findUniqueOrThrow
+   */
+  export type LengthMetricsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which LengthMetrics to fetch.
+     */
+    where: LengthMetricsWhereUniqueInput
+  }
+
+  /**
+   * LengthMetrics findFirst
+   */
+  export type LengthMetricsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which LengthMetrics to fetch.
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LengthMetrics to fetch.
+     */
+    orderBy?: LengthMetricsOrderByWithRelationInput | LengthMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LengthMetrics.
+     */
+    cursor?: LengthMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LengthMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LengthMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LengthMetrics.
+     */
+    distinct?: LengthMetricsScalarFieldEnum | LengthMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * LengthMetrics findFirstOrThrow
+   */
+  export type LengthMetricsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which LengthMetrics to fetch.
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LengthMetrics to fetch.
+     */
+    orderBy?: LengthMetricsOrderByWithRelationInput | LengthMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for LengthMetrics.
+     */
+    cursor?: LengthMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LengthMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LengthMetrics.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of LengthMetrics.
+     */
+    distinct?: LengthMetricsScalarFieldEnum | LengthMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * LengthMetrics findMany
+   */
+  export type LengthMetricsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * Filter, which LengthMetrics to fetch.
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of LengthMetrics to fetch.
+     */
+    orderBy?: LengthMetricsOrderByWithRelationInput | LengthMetricsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing LengthMetrics.
+     */
+    cursor?: LengthMetricsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` LengthMetrics from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` LengthMetrics.
+     */
+    skip?: number
+    distinct?: LengthMetricsScalarFieldEnum | LengthMetricsScalarFieldEnum[]
+  }
+
+  /**
+   * LengthMetrics create
+   */
+  export type LengthMetricsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a LengthMetrics.
+     */
+    data: XOR<LengthMetricsCreateInput, LengthMetricsUncheckedCreateInput>
+  }
+
+  /**
+   * LengthMetrics createMany
+   */
+  export type LengthMetricsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many LengthMetrics.
+     */
+    data: LengthMetricsCreateManyInput | LengthMetricsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * LengthMetrics createManyAndReturn
+   */
+  export type LengthMetricsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * The data used to create many LengthMetrics.
+     */
+    data: LengthMetricsCreateManyInput | LengthMetricsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LengthMetrics update
+   */
+  export type LengthMetricsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a LengthMetrics.
+     */
+    data: XOR<LengthMetricsUpdateInput, LengthMetricsUncheckedUpdateInput>
+    /**
+     * Choose, which LengthMetrics to update.
+     */
+    where: LengthMetricsWhereUniqueInput
+  }
+
+  /**
+   * LengthMetrics updateMany
+   */
+  export type LengthMetricsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update LengthMetrics.
+     */
+    data: XOR<LengthMetricsUpdateManyMutationInput, LengthMetricsUncheckedUpdateManyInput>
+    /**
+     * Filter which LengthMetrics to update
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * Limit how many LengthMetrics to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * LengthMetrics updateManyAndReturn
+   */
+  export type LengthMetricsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * The data used to update LengthMetrics.
+     */
+    data: XOR<LengthMetricsUpdateManyMutationInput, LengthMetricsUncheckedUpdateManyInput>
+    /**
+     * Filter which LengthMetrics to update
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * Limit how many LengthMetrics to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * LengthMetrics upsert
+   */
+  export type LengthMetricsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the LengthMetrics to update in case it exists.
+     */
+    where: LengthMetricsWhereUniqueInput
+    /**
+     * In case the LengthMetrics found by the `where` argument doesn't exist, create a new LengthMetrics with this data.
+     */
+    create: XOR<LengthMetricsCreateInput, LengthMetricsUncheckedCreateInput>
+    /**
+     * In case the LengthMetrics was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LengthMetricsUpdateInput, LengthMetricsUncheckedUpdateInput>
+  }
+
+  /**
+   * LengthMetrics delete
+   */
+  export type LengthMetricsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
+    /**
+     * Filter which LengthMetrics to delete.
+     */
+    where: LengthMetricsWhereUniqueInput
+  }
+
+  /**
+   * LengthMetrics deleteMany
+   */
+  export type LengthMetricsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which LengthMetrics to delete
+     */
+    where?: LengthMetricsWhereInput
+    /**
+     * Limit how many LengthMetrics to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * LengthMetrics without action
+   */
+  export type LengthMetricsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LengthMetrics
+     */
+    select?: LengthMetricsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the LengthMetrics
+     */
+    omit?: LengthMetricsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LengthMetricsInclude<ExtArgs> | null
   }
 
 
@@ -8279,12 +9562,36 @@ export namespace Prisma {
   export type PromptResponseScalarFieldEnum = (typeof PromptResponseScalarFieldEnum)[keyof typeof PromptResponseScalarFieldEnum]
 
 
+  export const LengthMetricsScalarFieldEnum: {
+    id: 'id',
+    prompt_response_id: 'prompt_response_id',
+    response_token_count: 'response_token_count',
+    response_sentence_count: 'response_sentence_count',
+    response_word_count: 'response_word_count',
+    avg_sentence_length: 'avg_sentence_length',
+    response_to_prompt_ratio: 'response_to_prompt_ratio',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    extras: 'extras'
+  };
+
+  export type LengthMetricsScalarFieldEnum = (typeof LengthMetricsScalarFieldEnum)[keyof typeof LengthMetricsScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -8301,6 +9608,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -8361,6 +9677,34 @@ export namespace Prisma {
    * Reference to a field of type 'Float[]'
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
   /**
    * Deep Input Types
@@ -8707,6 +10051,7 @@ export namespace Prisma {
     prompt?: XOR<PromptScalarRelationFilter, PromptWhereInput>
     model?: XOR<LLMModelScalarRelationFilter, LLMModelWhereInput>
     profile?: XOR<SamplingProfileScalarRelationFilter, SamplingProfileWhereInput>
+    lengthMetrics?: XOR<LengthMetricsNullableScalarRelationFilter, LengthMetricsWhereInput> | null
   }
 
   export type PromptResponseOrderByWithRelationInput = {
@@ -8720,6 +10065,7 @@ export namespace Prisma {
     prompt?: PromptOrderByWithRelationInput
     model?: LLMModelOrderByWithRelationInput
     profile?: SamplingProfileOrderByWithRelationInput
+    lengthMetrics?: LengthMetricsOrderByWithRelationInput
   }
 
   export type PromptResponseWhereUniqueInput = Prisma.AtLeast<{
@@ -8736,6 +10082,7 @@ export namespace Prisma {
     prompt?: XOR<PromptScalarRelationFilter, PromptWhereInput>
     model?: XOR<LLMModelScalarRelationFilter, LLMModelWhereInput>
     profile?: XOR<SamplingProfileScalarRelationFilter, SamplingProfileWhereInput>
+    lengthMetrics?: XOR<LengthMetricsNullableScalarRelationFilter, LengthMetricsWhereInput> | null
   }, "id">
 
   export type PromptResponseOrderByWithAggregationInput = {
@@ -8762,6 +10109,88 @@ export namespace Prisma {
     response?: StringNullableWithAggregatesFilter<"PromptResponse"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"PromptResponse"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"PromptResponse"> | Date | string
+  }
+
+  export type LengthMetricsWhereInput = {
+    AND?: LengthMetricsWhereInput | LengthMetricsWhereInput[]
+    OR?: LengthMetricsWhereInput[]
+    NOT?: LengthMetricsWhereInput | LengthMetricsWhereInput[]
+    id?: UuidFilter<"LengthMetrics"> | string
+    prompt_response_id?: UuidFilter<"LengthMetrics"> | string
+    response_token_count?: IntFilter<"LengthMetrics"> | number
+    response_sentence_count?: IntFilter<"LengthMetrics"> | number
+    response_word_count?: IntFilter<"LengthMetrics"> | number
+    avg_sentence_length?: DecimalFilter<"LengthMetrics"> | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFilter<"LengthMetrics"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"LengthMetrics"> | Date | string
+    updatedAt?: DateTimeFilter<"LengthMetrics"> | Date | string
+    extras?: JsonNullableFilter<"LengthMetrics">
+    promptResponse?: XOR<PromptResponseScalarRelationFilter, PromptResponseWhereInput>
+  }
+
+  export type LengthMetricsOrderByWithRelationInput = {
+    id?: SortOrder
+    prompt_response_id?: SortOrder
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    extras?: SortOrderInput | SortOrder
+    promptResponse?: PromptResponseOrderByWithRelationInput
+  }
+
+  export type LengthMetricsWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    prompt_response_id?: string
+    AND?: LengthMetricsWhereInput | LengthMetricsWhereInput[]
+    OR?: LengthMetricsWhereInput[]
+    NOT?: LengthMetricsWhereInput | LengthMetricsWhereInput[]
+    response_token_count?: IntFilter<"LengthMetrics"> | number
+    response_sentence_count?: IntFilter<"LengthMetrics"> | number
+    response_word_count?: IntFilter<"LengthMetrics"> | number
+    avg_sentence_length?: DecimalFilter<"LengthMetrics"> | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFilter<"LengthMetrics"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFilter<"LengthMetrics"> | Date | string
+    updatedAt?: DateTimeFilter<"LengthMetrics"> | Date | string
+    extras?: JsonNullableFilter<"LengthMetrics">
+    promptResponse?: XOR<PromptResponseScalarRelationFilter, PromptResponseWhereInput>
+  }, "id" | "prompt_response_id">
+
+  export type LengthMetricsOrderByWithAggregationInput = {
+    id?: SortOrder
+    prompt_response_id?: SortOrder
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    extras?: SortOrderInput | SortOrder
+    _count?: LengthMetricsCountOrderByAggregateInput
+    _avg?: LengthMetricsAvgOrderByAggregateInput
+    _max?: LengthMetricsMaxOrderByAggregateInput
+    _min?: LengthMetricsMinOrderByAggregateInput
+    _sum?: LengthMetricsSumOrderByAggregateInput
+  }
+
+  export type LengthMetricsScalarWhereWithAggregatesInput = {
+    AND?: LengthMetricsScalarWhereWithAggregatesInput | LengthMetricsScalarWhereWithAggregatesInput[]
+    OR?: LengthMetricsScalarWhereWithAggregatesInput[]
+    NOT?: LengthMetricsScalarWhereWithAggregatesInput | LengthMetricsScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"LengthMetrics"> | string
+    prompt_response_id?: UuidWithAggregatesFilter<"LengthMetrics"> | string
+    response_token_count?: IntWithAggregatesFilter<"LengthMetrics"> | number
+    response_sentence_count?: IntWithAggregatesFilter<"LengthMetrics"> | number
+    response_word_count?: IntWithAggregatesFilter<"LengthMetrics"> | number
+    avg_sentence_length?: DecimalWithAggregatesFilter<"LengthMetrics"> | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalWithAggregatesFilter<"LengthMetrics"> | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeWithAggregatesFilter<"LengthMetrics"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"LengthMetrics"> | Date | string
+    extras?: JsonNullableWithAggregatesFilter<"LengthMetrics">
   }
 
   export type LLMModelCreateInput = {
@@ -9111,6 +10540,7 @@ export namespace Prisma {
     prompt: PromptCreateNestedOneWithoutResponsesInput
     model: LLMModelCreateNestedOneWithoutResponsesInput
     profile: SamplingProfileCreateNestedOneWithoutResponsesInput
+    lengthMetrics?: LengthMetricsCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseUncheckedCreateInput = {
@@ -9121,6 +10551,7 @@ export namespace Prisma {
     response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lengthMetrics?: LengthMetricsUncheckedCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseUpdateInput = {
@@ -9131,6 +10562,7 @@ export namespace Prisma {
     prompt?: PromptUpdateOneRequiredWithoutResponsesNestedInput
     model?: LLMModelUpdateOneRequiredWithoutResponsesNestedInput
     profile?: SamplingProfileUpdateOneRequiredWithoutResponsesNestedInput
+    lengthMetrics?: LengthMetricsUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateInput = {
@@ -9141,6 +10573,7 @@ export namespace Prisma {
     response?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lengthMetrics?: LengthMetricsUncheckedUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseCreateManyInput = {
@@ -9168,6 +10601,96 @@ export namespace Prisma {
     response?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LengthMetricsCreateInput = {
+    id?: string
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+    promptResponse: PromptResponseCreateNestedOneWithoutLengthMetricsInput
+  }
+
+  export type LengthMetricsUncheckedCreateInput = {
+    id?: string
+    prompt_response_id: string
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    response_token_count?: IntFieldUpdateOperationsInput | number
+    response_sentence_count?: IntFieldUpdateOperationsInput | number
+    response_word_count?: IntFieldUpdateOperationsInput | number
+    avg_sentence_length?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+    promptResponse?: PromptResponseUpdateOneRequiredWithoutLengthMetricsNestedInput
+  }
+
+  export type LengthMetricsUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prompt_response_id?: StringFieldUpdateOperationsInput | string
+    response_token_count?: IntFieldUpdateOperationsInput | number
+    response_sentence_count?: IntFieldUpdateOperationsInput | number
+    response_word_count?: IntFieldUpdateOperationsInput | number
+    avg_sentence_length?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsCreateManyInput = {
+    id?: string
+    prompt_response_id: string
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    response_token_count?: IntFieldUpdateOperationsInput | number
+    response_sentence_count?: IntFieldUpdateOperationsInput | number
+    response_word_count?: IntFieldUpdateOperationsInput | number
+    avg_sentence_length?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prompt_response_id?: StringFieldUpdateOperationsInput | string
+    response_token_count?: IntFieldUpdateOperationsInput | number
+    response_sentence_count?: IntFieldUpdateOperationsInput | number
+    response_word_count?: IntFieldUpdateOperationsInput | number
+    avg_sentence_length?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -9611,6 +11134,11 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
+  export type LengthMetricsNullableScalarRelationFilter = {
+    is?: LengthMetricsWhereInput | null
+    isNot?: LengthMetricsWhereInput | null
+  }
+
   export type PromptResponseCountOrderByAggregateInput = {
     id?: SortOrder
     prompt_id?: SortOrder
@@ -9657,6 +11185,140 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type PromptResponseScalarRelationFilter = {
+    is?: PromptResponseWhereInput
+    isNot?: PromptResponseWhereInput
+  }
+
+  export type LengthMetricsCountOrderByAggregateInput = {
+    id?: SortOrder
+    prompt_response_id?: SortOrder
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    extras?: SortOrder
+  }
+
+  export type LengthMetricsAvgOrderByAggregateInput = {
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+  }
+
+  export type LengthMetricsMaxOrderByAggregateInput = {
+    id?: SortOrder
+    prompt_response_id?: SortOrder
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LengthMetricsMinOrderByAggregateInput = {
+    id?: SortOrder
+    prompt_response_id?: SortOrder
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LengthMetricsSumOrderByAggregateInput = {
+    response_token_count?: SortOrder
+    response_sentence_count?: SortOrder
+    response_word_count?: SortOrder
+    avg_sentence_length?: SortOrder
+    response_to_prompt_ratio?: SortOrder
+  }
+
+  export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type ModelToPromptCreateNestedManyWithoutModelInput = {
@@ -10067,6 +11729,18 @@ export namespace Prisma {
     connect?: SamplingProfileWhereUniqueInput
   }
 
+  export type LengthMetricsCreateNestedOneWithoutPromptResponseInput = {
+    create?: XOR<LengthMetricsCreateWithoutPromptResponseInput, LengthMetricsUncheckedCreateWithoutPromptResponseInput>
+    connectOrCreate?: LengthMetricsCreateOrConnectWithoutPromptResponseInput
+    connect?: LengthMetricsWhereUniqueInput
+  }
+
+  export type LengthMetricsUncheckedCreateNestedOneWithoutPromptResponseInput = {
+    create?: XOR<LengthMetricsCreateWithoutPromptResponseInput, LengthMetricsUncheckedCreateWithoutPromptResponseInput>
+    connectOrCreate?: LengthMetricsCreateOrConnectWithoutPromptResponseInput
+    connect?: LengthMetricsWhereUniqueInput
+  }
+
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
   }
@@ -10093,6 +11767,48 @@ export namespace Prisma {
     upsert?: SamplingProfileUpsertWithoutResponsesInput
     connect?: SamplingProfileWhereUniqueInput
     update?: XOR<XOR<SamplingProfileUpdateToOneWithWhereWithoutResponsesInput, SamplingProfileUpdateWithoutResponsesInput>, SamplingProfileUncheckedUpdateWithoutResponsesInput>
+  }
+
+  export type LengthMetricsUpdateOneWithoutPromptResponseNestedInput = {
+    create?: XOR<LengthMetricsCreateWithoutPromptResponseInput, LengthMetricsUncheckedCreateWithoutPromptResponseInput>
+    connectOrCreate?: LengthMetricsCreateOrConnectWithoutPromptResponseInput
+    upsert?: LengthMetricsUpsertWithoutPromptResponseInput
+    disconnect?: LengthMetricsWhereInput | boolean
+    delete?: LengthMetricsWhereInput | boolean
+    connect?: LengthMetricsWhereUniqueInput
+    update?: XOR<XOR<LengthMetricsUpdateToOneWithWhereWithoutPromptResponseInput, LengthMetricsUpdateWithoutPromptResponseInput>, LengthMetricsUncheckedUpdateWithoutPromptResponseInput>
+  }
+
+  export type LengthMetricsUncheckedUpdateOneWithoutPromptResponseNestedInput = {
+    create?: XOR<LengthMetricsCreateWithoutPromptResponseInput, LengthMetricsUncheckedCreateWithoutPromptResponseInput>
+    connectOrCreate?: LengthMetricsCreateOrConnectWithoutPromptResponseInput
+    upsert?: LengthMetricsUpsertWithoutPromptResponseInput
+    disconnect?: LengthMetricsWhereInput | boolean
+    delete?: LengthMetricsWhereInput | boolean
+    connect?: LengthMetricsWhereUniqueInput
+    update?: XOR<XOR<LengthMetricsUpdateToOneWithWhereWithoutPromptResponseInput, LengthMetricsUpdateWithoutPromptResponseInput>, LengthMetricsUncheckedUpdateWithoutPromptResponseInput>
+  }
+
+  export type PromptResponseCreateNestedOneWithoutLengthMetricsInput = {
+    create?: XOR<PromptResponseCreateWithoutLengthMetricsInput, PromptResponseUncheckedCreateWithoutLengthMetricsInput>
+    connectOrCreate?: PromptResponseCreateOrConnectWithoutLengthMetricsInput
+    connect?: PromptResponseWhereUniqueInput
+  }
+
+  export type DecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
+  }
+
+  export type PromptResponseUpdateOneRequiredWithoutLengthMetricsNestedInput = {
+    create?: XOR<PromptResponseCreateWithoutLengthMetricsInput, PromptResponseUncheckedCreateWithoutLengthMetricsInput>
+    connectOrCreate?: PromptResponseCreateOrConnectWithoutLengthMetricsInput
+    upsert?: PromptResponseUpsertWithoutLengthMetricsInput
+    connect?: PromptResponseWhereUniqueInput
+    update?: XOR<XOR<PromptResponseUpdateToOneWithWhereWithoutLengthMetricsInput, PromptResponseUpdateWithoutLengthMetricsInput>, PromptResponseUncheckedUpdateWithoutLengthMetricsInput>
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -10315,6 +12031,56 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedDecimalFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+  }
+
+  export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedDecimalFilter<$PrismaModel>
+    _sum?: NestedDecimalFilter<$PrismaModel>
+    _min?: NestedDecimalFilter<$PrismaModel>
+    _max?: NestedDecimalFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type ModelToPromptCreateWithoutModelInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -10344,6 +12110,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     prompt: PromptCreateNestedOneWithoutResponsesInput
     profile: SamplingProfileCreateNestedOneWithoutResponsesInput
+    lengthMetrics?: LengthMetricsCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseUncheckedCreateWithoutModelInput = {
@@ -10353,6 +12120,7 @@ export namespace Prisma {
     response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lengthMetrics?: LengthMetricsUncheckedCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseCreateOrConnectWithoutModelInput = {
@@ -10449,6 +12217,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     prompt: PromptCreateNestedOneWithoutResponsesInput
     model: LLMModelCreateNestedOneWithoutResponsesInput
+    lengthMetrics?: LengthMetricsCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseUncheckedCreateWithoutProfileInput = {
@@ -10458,6 +12227,7 @@ export namespace Prisma {
     response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lengthMetrics?: LengthMetricsUncheckedCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseCreateOrConnectWithoutProfileInput = {
@@ -10563,6 +12333,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     model: LLMModelCreateNestedOneWithoutResponsesInput
     profile: SamplingProfileCreateNestedOneWithoutResponsesInput
+    lengthMetrics?: LengthMetricsCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseUncheckedCreateWithoutPromptInput = {
@@ -10572,6 +12343,7 @@ export namespace Prisma {
     response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    lengthMetrics?: LengthMetricsUncheckedCreateNestedOneWithoutPromptResponseInput
   }
 
   export type PromptResponseCreateOrConnectWithoutPromptInput = {
@@ -10961,6 +12733,35 @@ export namespace Prisma {
     create: XOR<SamplingProfileCreateWithoutResponsesInput, SamplingProfileUncheckedCreateWithoutResponsesInput>
   }
 
+  export type LengthMetricsCreateWithoutPromptResponseInput = {
+    id?: string
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsUncheckedCreateWithoutPromptResponseInput = {
+    id?: string
+    response_token_count: number
+    response_sentence_count: number
+    response_word_count: number
+    avg_sentence_length: Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio: Decimal | DecimalJsLike | number | string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsCreateOrConnectWithoutPromptResponseInput = {
+    where: LengthMetricsWhereUniqueInput
+    create: XOR<LengthMetricsCreateWithoutPromptResponseInput, LengthMetricsUncheckedCreateWithoutPromptResponseInput>
+  }
+
   export type PromptUpsertWithoutResponsesInput = {
     update: XOR<PromptUpdateWithoutResponsesInput, PromptUncheckedUpdateWithoutResponsesInput>
     create: XOR<PromptCreateWithoutResponsesInput, PromptUncheckedCreateWithoutResponsesInput>
@@ -11064,6 +12865,97 @@ export namespace Prisma {
     prompts?: ProfileToPromptUncheckedUpdateManyWithoutProfileNestedInput
   }
 
+  export type LengthMetricsUpsertWithoutPromptResponseInput = {
+    update: XOR<LengthMetricsUpdateWithoutPromptResponseInput, LengthMetricsUncheckedUpdateWithoutPromptResponseInput>
+    create: XOR<LengthMetricsCreateWithoutPromptResponseInput, LengthMetricsUncheckedCreateWithoutPromptResponseInput>
+    where?: LengthMetricsWhereInput
+  }
+
+  export type LengthMetricsUpdateToOneWithWhereWithoutPromptResponseInput = {
+    where?: LengthMetricsWhereInput
+    data: XOR<LengthMetricsUpdateWithoutPromptResponseInput, LengthMetricsUncheckedUpdateWithoutPromptResponseInput>
+  }
+
+  export type LengthMetricsUpdateWithoutPromptResponseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    response_token_count?: IntFieldUpdateOperationsInput | number
+    response_sentence_count?: IntFieldUpdateOperationsInput | number
+    response_word_count?: IntFieldUpdateOperationsInput | number
+    avg_sentence_length?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type LengthMetricsUncheckedUpdateWithoutPromptResponseInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    response_token_count?: IntFieldUpdateOperationsInput | number
+    response_sentence_count?: IntFieldUpdateOperationsInput | number
+    response_word_count?: IntFieldUpdateOperationsInput | number
+    avg_sentence_length?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    response_to_prompt_ratio?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    extras?: NullableJsonNullValueInput | InputJsonValue
+  }
+
+  export type PromptResponseCreateWithoutLengthMetricsInput = {
+    id?: string
+    response?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    prompt: PromptCreateNestedOneWithoutResponsesInput
+    model: LLMModelCreateNestedOneWithoutResponsesInput
+    profile: SamplingProfileCreateNestedOneWithoutResponsesInput
+  }
+
+  export type PromptResponseUncheckedCreateWithoutLengthMetricsInput = {
+    id?: string
+    prompt_id: string
+    model_id: string
+    profile_id: string
+    response?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type PromptResponseCreateOrConnectWithoutLengthMetricsInput = {
+    where: PromptResponseWhereUniqueInput
+    create: XOR<PromptResponseCreateWithoutLengthMetricsInput, PromptResponseUncheckedCreateWithoutLengthMetricsInput>
+  }
+
+  export type PromptResponseUpsertWithoutLengthMetricsInput = {
+    update: XOR<PromptResponseUpdateWithoutLengthMetricsInput, PromptResponseUncheckedUpdateWithoutLengthMetricsInput>
+    create: XOR<PromptResponseCreateWithoutLengthMetricsInput, PromptResponseUncheckedCreateWithoutLengthMetricsInput>
+    where?: PromptResponseWhereInput
+  }
+
+  export type PromptResponseUpdateToOneWithWhereWithoutLengthMetricsInput = {
+    where?: PromptResponseWhereInput
+    data: XOR<PromptResponseUpdateWithoutLengthMetricsInput, PromptResponseUncheckedUpdateWithoutLengthMetricsInput>
+  }
+
+  export type PromptResponseUpdateWithoutLengthMetricsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    response?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    prompt?: PromptUpdateOneRequiredWithoutResponsesNestedInput
+    model?: LLMModelUpdateOneRequiredWithoutResponsesNestedInput
+    profile?: SamplingProfileUpdateOneRequiredWithoutResponsesNestedInput
+  }
+
+  export type PromptResponseUncheckedUpdateWithoutLengthMetricsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    prompt_id?: StringFieldUpdateOperationsInput | string
+    model_id?: StringFieldUpdateOperationsInput | string
+    profile_id?: StringFieldUpdateOperationsInput | string
+    response?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ModelToPromptCreateManyModelInput = {
     prompt_id: string
     createdAt?: Date | string
@@ -11104,6 +12996,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prompt?: PromptUpdateOneRequiredWithoutResponsesNestedInput
     profile?: SamplingProfileUpdateOneRequiredWithoutResponsesNestedInput
+    lengthMetrics?: LengthMetricsUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateWithoutModelInput = {
@@ -11113,6 +13006,7 @@ export namespace Prisma {
     response?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lengthMetrics?: LengthMetricsUncheckedUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateManyWithoutModelInput = {
@@ -11164,6 +13058,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     prompt?: PromptUpdateOneRequiredWithoutResponsesNestedInput
     model?: LLMModelUpdateOneRequiredWithoutResponsesNestedInput
+    lengthMetrics?: LengthMetricsUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateWithoutProfileInput = {
@@ -11173,6 +13068,7 @@ export namespace Prisma {
     response?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lengthMetrics?: LengthMetricsUncheckedUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateManyWithoutProfileInput = {
@@ -11248,6 +13144,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     model?: LLMModelUpdateOneRequiredWithoutResponsesNestedInput
     profile?: SamplingProfileUpdateOneRequiredWithoutResponsesNestedInput
+    lengthMetrics?: LengthMetricsUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateWithoutPromptInput = {
@@ -11257,6 +13154,7 @@ export namespace Prisma {
     response?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lengthMetrics?: LengthMetricsUncheckedUpdateOneWithoutPromptResponseNestedInput
   }
 
   export type PromptResponseUncheckedUpdateManyWithoutPromptInput = {

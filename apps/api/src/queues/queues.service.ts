@@ -21,6 +21,9 @@ export class QueueService {
         },
         {
           jobId: jobId,
+          removeOnComplete: true,
+          removeOnFail: true,
+          delay: 1000,
         },
       );
     } catch (error) {

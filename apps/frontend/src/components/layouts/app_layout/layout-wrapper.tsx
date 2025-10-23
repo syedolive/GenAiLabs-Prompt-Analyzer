@@ -11,9 +11,12 @@ import {
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
 import { AppSidebar } from "./app-sidebar";
-import { ProviderWrapper } from "@/providers/provider-wrapper";
 
-export function LayoutWrapper({ children }: { children: React.ReactNode }) {
+export async function LayoutWrapper({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -29,7 +32,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
               <BreadcrumbList>
                 <BreadcrumbItem>
                   <BreadcrumbPage className="line-clamp-1">
-                    Project Management & Task Tracking
+                    Prompt Analyzer
                   </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>

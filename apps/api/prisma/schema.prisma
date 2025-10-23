@@ -87,19 +87,40 @@ model ProfileToPrompt {
 }
 
 model PromptResponse {
-  id         String          @id @default(uuid()) @db.Uuid
-  prompt_id  String          @db.Uuid
-  prompt     Prompt          @relation(fields: [prompt_id], references: [id])
-  model_id   String          @db.Uuid
-  model      LLMModel        @relation(fields: [model_id], references: [id])
-  profile_id String          @db.Uuid
-  profile    SamplingProfile @relation(fields: [profile_id], references: [id])
-  response   String?         @db.VarChar(255)
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  id            String          @id @default(uuid()) @db.Uuid
+  prompt_id     String          @db.Uuid
+  prompt        Prompt          @relation(fields: [prompt_id], references: [id], onDelete: Cascade)
+  model_id      String          @db.Uuid
+  model         LLMModel        @relation(fields: [model_id], references: [id], onDelete: Cascade)
+  profile_id    String          @db.Uuid
+  profile       SamplingProfile @relation(fields: [profile_id], references: [id], onDelete: Cascade)
+  response      String?         @db.Text
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  lengthMetrics LengthMetrics?
 
   @@index([prompt_id])
   @@index([model_id])
   @@index([profile_id])
   @@map("prompt_response")
+}
+
+model LengthMetrics {
+  id                       String         @id @default(uuid()) @db.Uuid
+  prompt_response_id       String         @unique @db.Uuid
+  promptResponse           PromptResponse @relation(fields: [prompt_response_id], references: [id], onDelete: Cascade)
+  response_token_count     Int
+  response_sentence_count  Int
+  response_word_count      Int
+  avg_sentence_length      Decimal        @db.Decimal(6, 2)
+  response_to_prompt_ratio Decimal        @db.Decimal(8, 4)
+
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  extras    Json?
+
+  @@index([prompt_response_id])
+  @@index([response_to_prompt_ratio])
+  @@index([response_token_count])
+  @@map("length_metrics")
 }

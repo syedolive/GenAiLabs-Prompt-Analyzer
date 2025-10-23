@@ -25,12 +25,12 @@ const data = {
     //   url: "#",
     //   icon: BrainCog,
     // },
-    {
-      title: "Search",
-      url: "#",
-      icon: SearchIcon,
-      isActive: true,
-    },
+    // {
+    //   title: "Search",
+    //   url: "?search=true",
+    //   icon: SearchIcon,
+    //   isActive: true,
+    // },
   ],
   navSecondary: [],
 };

@@ -1,9 +1,13 @@
 packages:
   - apps/*
-  - packages/*
 
 onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
+  - "@tailwindcss/oxide"
   - msgpackr-extract
   - sharp
   - unrs-resolver
+  - "@nestjs/core"
+  - "prisma"
+  - "@prisma/client"
+  - "@prisma/engines"
+  - "esbuild"

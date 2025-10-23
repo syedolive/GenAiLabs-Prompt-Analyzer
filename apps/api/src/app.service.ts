@@ -8,12 +8,16 @@ import { PrismaService } from './prisma-module/prisma.service';
 import { CreateSampleProfileDto } from './dto/create-sample-profile.dto';
 import { CreatePromptDto } from './dto/create-prompt-dto';
 import { QueueService } from './queues/queues.service';
+import { OnEvent } from '@nestjs/event-emitter';
+import { INFERENCE_COMPLETED, InferenceCompletedEvent } from './dto/events.dto';
+import { MetricsService } from './metrics/metrics.service';
 
 @Injectable()
 export class AppService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly queueService: QueueService,
+    private readonly metricsService: MetricsService,
   ) {}
   getHello(): string {
     return 'Hello World!';
@@ -164,5 +168,169 @@ export class AppService {
       }
       throw new BadRequestException(`Failed to create prompt: ${e}`);
     }
+  }
+
+  @OnEvent(INFERENCE_COMPLETED, { async: true })
+  async onInferenceQueueCompleted(payload: InferenceCompletedEvent) {
+    const { result, jobId } = payload;
+    await this.prisma.promptResponse.update({
+      where: {
+        id: jobId,
+      },
+      data: {
+        response: result,
+      },
+    });
+  }
+
+  async getPromptLengthMetrics(id: string) {
+    const responses = await this.prisma.promptResponse.findMany({
+      where: {
+        prompt_id: id,
+      },
+      select: {
+        id: true,
+        response: true,
+        profile: {
+          select: {
+            id: true,
+            profile_name: true,
+          },
+        },
+        prompt: {
+          select: {
+            id: true,
+            prompt: true,
+          },
+        },
+        lengthMetrics: true,
+      },
+    });
+    if (responses.length === 0) {
+      throw new NotFoundException('The required prompt was not found');
+    }
+    if (responses.some((r) => r.lengthMetrics === null)) {
+      const results = await Promise.all(
+        responses
+          .filter((r) => r.lengthMetrics === null)
+          .map((r) =>
+            Promise.resolve().then(() =>
+              this.metricsService.calculateLengthMetrics(
+                r.prompt.prompt,
+                r.id,
+                r.response!,
+              ),
+            ),
+          ),
+      );
+      await this.metricsService.saveLengthMetrics(results);
+      return await this.prisma.promptResponse.findMany({
+        where: {
+          prompt_id: id,
+        },
+        select: {
+          id: true,
+          prompt: {
+            select: {
+              id: true,
+              prompt: true,
+            },
+          },
+          lengthMetrics: true,
+          profile: {
+            select: {
+              id: true,
+              profile_name: true,
+            },
+          },
+        },
+      });
+    }
+    return responses;
+  }
+
+  async getPromptCompletenessMetrics(id: string) {
+    const responses = await this.prisma.promptResponse.findMany({
+      where: {
+        prompt_id: id,
+      },
+      select: {
+        id: true,
+        response: true,
+        profile: {
+          select: {
+            id: true,
+            profile_name: true,
+          },
+        },
+        prompt: {
+          select: {
+            id: true,
+            prompt: true,
+          },
+        },
+      },
+    });
+    if (responses.length === 0) {
+      throw new NotFoundException('The required prompt was not found');
+    }
+    const metrics = await Promise.all(
+      responses.map((response) => {
+        return Promise.resolve().then(() =>
+          this.metricsService.calculateCompleteness(
+            response.prompt.prompt,
+            response.response ?? '',
+          ),
+        );
+      }),
+    );
+    return responses.map((response) => {
+      return {
+        ...response,
+        completeness: metrics,
+      };
+    });
+  }
+
+  async exportPrompt(id: string) {
+    const prompt = await this.prisma.prompt.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        prompt: true,
+        responses: {
+          select: {
+            id: true,
+            response: true,
+            lengthMetrics: true,
+          },
+        },
+      },
+    });
+    if (!prompt) {
+      throw new NotFoundException('Prompt not found');
+    }
+    const metrics = await Promise.all(
+      prompt?.responses.map((response) => {
+        return Promise.resolve().then(() =>
+          this.metricsService.calculateCompleteness(
+            prompt.prompt,
+            response.response ?? '',
+          ),
+        );
+      }),
+    );
+    return {
+      promptId: prompt.id,
+      prompt: prompt.prompt,
+      responses: prompt.responses.map((response, index) => {
+        return {
+          ...response,
+          completeness: metrics[index],
+        };
+      }),
+    };
   }
 }

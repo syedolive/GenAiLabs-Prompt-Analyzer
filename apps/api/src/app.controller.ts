@@ -46,6 +46,11 @@ export class AppController {
     return await this.appService.getPrompts(page, limit);
   }
 
+  @Get('prompt/:id/export')
+  async exportPrompt(@Param('id', ParseUUIDPipe) id: string) {
+    return this.appService.exportPrompt(id);
+  }
+
   @Get('prompt/:id')
   async getPrompt(@Param('id', ParseUUIDPipe) id: string) {
     return await this.appService.getPrompt(id);
@@ -57,5 +62,17 @@ export class AppController {
     body: CreatePromptDto,
   ) {
     return await this.appService.sendPrompt(body);
+  }
+
+  @Get('metric/:promptId/length-metrics')
+  async getPromptLengthMetrics(@Param('promptId', ParseUUIDPipe) id: string) {
+    return await this.appService.getPromptLengthMetrics(id);
+  }
+
+  @Get('metric/:promptId/completeness')
+  async getPromptCompletenessMetrics(
+    @Param('promptId', ParseUUIDPipe) id: string,
+  ) {
+    return await this.appService.getPromptCompletenessMetrics(id);
   }
 }

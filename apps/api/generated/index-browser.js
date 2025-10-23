@@ -175,9 +175,27 @@ exports.Prisma.PromptResponseScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.LengthMetricsScalarFieldEnum = {
+  id: 'id',
+  prompt_response_id: 'prompt_response_id',
+  response_token_count: 'response_token_count',
+  response_sentence_count: 'response_sentence_count',
+  response_word_count: 'response_word_count',
+  avg_sentence_length: 'avg_sentence_length',
+  response_to_prompt_ratio: 'response_to_prompt_ratio',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  extras: 'extras'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -190,6 +208,12 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
   LLMModel: 'LLMModel',
@@ -197,7 +221,8 @@ exports.Prisma.ModelName = {
   Prompt: 'Prompt',
   ModelToPrompt: 'ModelToPrompt',
   ProfileToPrompt: 'ProfileToPrompt',
-  PromptResponse: 'PromptResponse'
+  PromptResponse: 'PromptResponse',
+  LengthMetrics: 'LengthMetrics'
 };
 
 /**

@@ -12,6 +12,6 @@ async function bootstrap() {
     origin: [process.env.FRONTEND_URL, 'http://192.168.0.113:3000'],
   });
   app.enableShutdownHooks();
-  await app.listen(process.env.PORT ?? 3001);
+  await app.listen(process.env.PORT ?? 3001, '0.0.0.0');
 }
 bootstrap().then(() => console.log(`server started at ${process.env.PORT}`));
